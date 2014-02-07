@@ -1,5 +1,9 @@
 --
--- For car with hazardous material inboard
+-- For trucks witrh following specs
+--
+-- weight > 3.5 t
+-- height > 4.0 m
+-- hazardous material inboard
 --
 -- Work derived from original car.lua
 --
@@ -38,12 +42,12 @@ speed_profile = {
 }
 
 take_minimum_of_speeds  = false
-obey_oneway 		= true
-obey_bollards           = true
-use_restrictions 	= true
-ignore_areas 		= true -- future feature
+obey_oneway 			      = true
+obey_bollards           =  true
+use_restrictions 		    = true
+ignore_areas 			      = true -- future feature
 traffic_signal_penalty  = 2
-u_turn_penalty 		= 20
+u_turn_penalty 			    = 20
 
 -- End of globals
 
@@ -66,6 +70,44 @@ local function parse_maxspeed(source)
 	end
 	return math.abs(n)
 end
+
+local function parse_maxweight(source)
+	if source == nil then
+		return 0
+	end
+	local n = tonumber(source:match("%d.%d*"))
+	if n == nil then
+		n = 0
+	end
+	return math.abs(n)
+end
+
+local function parse_maxheight(source)
+        if source == nil then
+                return 0
+        end
+        local n = tonumber(source:match("%d*"))
+        if n == nil then
+           n = 0
+        end
+        local inch = tonumber(source:match("(%d*)'%d"))
+        local feet = tonumber(source:match("%d*'(%d*)"))
+        if inch == nil then
+           inch = 0
+        end
+        if feet == nil then
+           feet = 0
+        end
+        if inch > 0 then
+           n = (inch * 3408)/10e3
+        end
+        if feet > 0 then
+           n = n + (feet*254)/10e3
+        end
+
+        return math.abs(n)
+     end
+
 
 function node_function (node)
   local barrier = node.tags:Find("barrier")
@@ -128,6 +170,22 @@ function way_function (way)
     return
   end
 
+  -- We don't route over route with maxweight=3.5 or less
+  local maxweight = parse_maxweight(way.tags:Find("maxweight"))
+  if 0 < maxweight then
+     if 3.5 >= maxweight then
+	return
+     end
+  end
+
+  -- We don't route over route with maxheight=4 or less
+  local maxheight = parse_maxheight(way.tags:Find("maxheight"))
+  if 0 < maxheight then
+     if 4 >= maxheight then
+	return
+     end
+  end
+
   -- Second, parse the way according to these properties
   local highway = way.tags:Find("highway")
   local name = way.tags:Find("name")
@@ -141,6 +199,7 @@ function way_function (way)
   local cycleway = way.tags:Find("cycleway")
   local duration  = way.tags:Find("duration")
   local service  = way.tags:Find("service")
+
   -- Set the name that will be used for instructions
 	if "" ~= ref then
 	  way.name = ref

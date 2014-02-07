@@ -1,3 +1,11 @@
+--
+-- For trucks witrh following specs
+--
+-- weight > 3.5 t
+-- height > 4.0 m
+--
+-- Work derived from original car.lua
+--
 -- Begin of globals
 require("lib/access")
 
