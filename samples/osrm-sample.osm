@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' upload='true' generator='JOSM'>
+  <node id='-438' action='modify' visible='true' lat='50.17937559705051' lon='2.907307575105895' />
+  <node id='-426' action='modify' visible='true' lat='50.23084203132525' lon='2.845412159263225' />
+  <node id='-408' action='modify' visible='true' lat='50.2081063782268' lon='2.9093774923236153' />
+  <node id='-406' action='modify' visible='true' lat='50.23518459147832' lon='2.965453681035779' />
+  <node id='-395' action='modify' visible='true' lat='50.256516925281254' lon='2.8543982771926153' />
+  <node id='-384' action='modify' visible='true' lat='50.281383576715186' lon='2.9067686494775713' />
+  <node id='-371' action='modify' visible='true' lat='50.30384803262492' lon='2.9531538363585343' />
+  <node id='-355' action='modify' visible='true' lat='50.330600346746735' lon='3.010761245871986' />
+  <node id='-289' action='modify' visible='true' lat='49.65068683304575' lon='1.7071099753670465' />
+  <node id='-288' action='modify' visible='true' lat='49.57939213600873' lon='1.7801148248225045' />
+  <node id='-286' action='modify' visible='true' lat='49.74034234249008' lon='1.6203505890576615' />
+  <node id='-252' visible='true' lat='49.9937978528516' lon='1.3142656188157156' />
+  <node id='-250' visible='true' lat='50.098082946099254' lon='1.5207349912325279' />
+  <node id='-248' visible='true' lat='49.80596314618873' lon='1.5382757268929834' />
+  <node id='-247' visible='true' lat='50.04973104305245' lon='1.4248360394935078' />
+  <node id='-246' visible='true' lat='49.930988674865915' lon='1.3889745457270455' />
+  <node id='-245' visible='true' lat='49.98516930574263' lon='1.6411868474879288' />
+  <node id='-244' visible='true' lat='49.93884798966747' lon='1.539206192945203' />
+  <node id='-243' visible='true' lat='49.89049564227598' lon='1.4381056408016741' />
+  <node id='-242' visible='true' lat='50.09777883095225' lon='1.196020206347021' />
+  <node id='-241' visible='true' lat='49.95835302994204' lon='1.3582763167708634' />
+  <node id='-133' action='modify' visible='true' lat='50.3349807687166' lon='2.803694720733017' />
+  <node id='-37' action='modify' visible='true' lat='50.338800946732945' lon='3.03150584017258' />
+  <node id='-35' action='modify' visible='true' lat='50.45088165801679' lon='2.911053983917179' />
+  <node id='-28' action='modify' visible='true' lat='50.29282093599382' lon='2.9295251856298545' />
+  <node id='-26' action='modify' visible='true' lat='50.40288659811132' lon='2.815155032178159' />
+  <node id='-17' action='modify' visible='true' lat='50.16091394588488' lon='2.928594719577635' />
+  <node id='-15' action='modify' visible='true' lat='50.244824614928156' lon='2.8284246334863257' />
+  <node id='-13' action='modify' visible='true' lat='50.28501950760154' lon='2.7792935384116966' />
+  <node id='-11' action='modify' visible='true' lat='50.30886259895791' lon='2.8342770545756983' />
+  <node id='-9' action='modify' visible='true' lat='50.31218228684755' lon='2.748595309455515' />
+  <node id='-6' action='modify' visible='true' lat='50.347365891603864' lon='2.704584611500367' />
+  <node id='-3' action='modify' visible='true' lat='50.45057978805469' lon='2.5863391990316726' />
+  <way id='-441' action='modify' visible='true'>
+    <nd ref='-438' />
+    <nd ref='-17' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P5' />
+  </way>
+  <way id='-440' action='modify' visible='true'>
+    <nd ref='-426' />
+    <nd ref='-438' />
+    <tag k='highway' v='primary' />
+    <tag k='maxheight' v='20' />
+    <tag k='maxweight' v='35' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P5' />
+  </way>
+  <way id='-407' action='modify' visible='true'>
+    <nd ref='-384' />
+    <nd ref='-406' />
+    <nd ref='-408' />
+    <nd ref='-395' />
+    <tag k='highway' v='tertiary' />
+    <tag k='ref' v='P6' />
+  </way>
+  <way id='-398' action='modify' visible='true'>
+    <nd ref='-395' />
+    <nd ref='-15' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-397' action='modify' visible='true'>
+    <nd ref='-384' />
+    <nd ref='-395' />
+    <tag k='highway' v='primary' />
+    <tag k='maxheight' v='2' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-290' action='modify' visible='true'>
+    <nd ref='-286' />
+    <nd ref='-289' />
+    <nd ref='-288' />
+    <tag k='highway' v='secondary' />
+    <tag k='ref' v='M1' />
+  </way>
+  <way id='-260' action='modify' visible='true'>
+    <nd ref='-241' />
+    <nd ref='-246' />
+    <tag k='hazmat' v='no' />
+    <tag k='highway' v='primary' />
+    <tag k='maxweight' v='3.5 t' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P4' />
+  </way>
+  <way id='-259' visible='true'>
+    <nd ref='-244' />
+    <nd ref='-243' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-258' visible='true'>
+    <nd ref='-247' />
+    <nd ref='-250' />
+    <nd ref='-245' />
+    <nd ref='-244' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la Résistance' />
+    <tag k='ref' v='P3' />
+  </way>
+  <way id='-257' visible='true'>
+    <nd ref='-242' />
+    <nd ref='-252' />
+    <nd ref='-241' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P1' />
+  </way>
+  <way id='-256' visible='true'>
+    <nd ref='-247' />
+    <nd ref='-244' />
+    <tag k='hazmat' v='no' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-255' action='modify' visible='true'>
+    <nd ref='-246' />
+    <nd ref='-243' />
+    <nd ref='-248' />
+    <nd ref='-286' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P5' />
+  </way>
+  <way id='-253' visible='true'>
+    <nd ref='-252' />
+    <nd ref='-247' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-145' action='modify' visible='true'>
+    <nd ref='-9' />
+    <nd ref='-13' />
+    <tag k='highway' v='cycleway' />
+    <tag k='name' v='Chemin du Vercors' />
+    <tag k='ref' v='V1' />
+  </way>
+  <way id='-43' action='modify' visible='true'>
+    <nd ref='-28' />
+    <nd ref='-384' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-42' action='modify' visible='true'>
+    <nd ref='-26' />
+    <nd ref='-28' />
+    <tag k='hazmat' v='no' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-36' action='modify' visible='true'>
+    <nd ref='-26' />
+    <nd ref='-35' />
+    <nd ref='-37' />
+    <nd ref='-355' />
+    <nd ref='-371' />
+    <nd ref='-28' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la Résistance' />
+    <tag k='ref' v='P3' />
+  </way>
+  <way id='-27' action='modify' visible='true'>
+    <nd ref='-6' />
+    <nd ref='-26' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la République' />
+    <tag k='ref' v='P2' />
+  </way>
+  <way id='-23' action='modify' visible='true'>
+    <nd ref='-13' />
+    <nd ref='-15' />
+    <nd ref='-426' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P5' />
+  </way>
+  <way id='-22' action='modify' visible='true'>
+    <nd ref='-9' />
+    <nd ref='-133' />
+    <nd ref='-11' />
+    <nd ref='-13' />
+    <tag k='highway' v='primary' />
+    <tag k='maxweight' v='3.5 t' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P4' />
+  </way>
+  <way id='-7' action='modify' visible='true'>
+    <nd ref='-3' />
+    <nd ref='-6' />
+    <nd ref='-9' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Rue de la Libération' />
+    <tag k='ref' v='P1' />
+  </way>
+</osm>
