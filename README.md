@@ -1,7 +1,7 @@
 osrm-profiles
 =============
 
-Lua profiles for OSRM
+Lua profiles for [OSRM](https://github.com/DennisOSRM/Project-OSRM/wiki)
 
 * car_hazmat.lua for vehicle with hazardous matarials inboard
 
