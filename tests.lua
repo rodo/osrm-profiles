@@ -1,15 +1,17 @@
--- Some super function to test
-function my_super_function( arg1, arg2 ) return arg1 + arg2 end
-
+--
+-- Tests for lib/parser.lua
+--
 -- Unit testing starts
+-- use https://github.com/rjpcomputing/luaunit
 local LuaUnit = require('luaunit')
 
 require('lib/parser')
 
 TestMaxWeight = {} --class
 TestMaxHeight = {} --class
-
-
+--
+-- maxweight
+--
 function TestMaxWeight:testWithoutUnit()
 
    result = parse_maxweight("150")
@@ -62,5 +64,4 @@ function TestMaxHeight:testWithUnitFootInch2()
 end
 
 -- class TestMyStuff
-
 LuaUnit:run()
