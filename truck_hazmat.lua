@@ -9,6 +9,7 @@
 --
 -- Begin of globals
 require("lib/access")
+require("lib/parser")
 
 barrier_whitelist = { ["cattle_grid"] = true, ["border_control"] = true, ["toll_booth"] = true, ["sally_port"] = true, ["gate"] = true, ["no"] = true, ["entrance"] = true}
 access_tag_whitelist = { ["yes"] = true, ["motorcar"] = true, ["motor_vehicle"] = true, ["vehicle"] = true, ["permissive"] = true, ["designated"] = true  }
@@ -70,44 +71,6 @@ local function parse_maxspeed(source)
 	end
 	return math.abs(n)
 end
-
-local function parse_maxweight(source)
-	if source == nil then
-		return 0
-	end
-	local n = tonumber(source:match("%d.%d*"))
-	if n == nil then
-		n = 0
-	end
-	return math.abs(n)
-end
-
-local function parse_maxheight(source)
-        if source == nil then
-                return 0
-        end
-        local n = tonumber(source:match("%d*"))
-        if n == nil then
-           n = 0
-        end
-        local inch = tonumber(source:match("(%d*)'%d"))
-        local feet = tonumber(source:match("%d*'(%d*)"))
-        if inch == nil then
-           inch = 0
-        end
-        if feet == nil then
-           feet = 0
-        end
-        if inch > 0 then
-           n = (inch * 3408)/10e3
-        end
-        if feet > 0 then
-           n = n + (feet*254)/10e3
-        end
-
-        return math.abs(n)
-     end
-
 
 function node_function (node)
   local barrier = node.tags:Find("barrier")

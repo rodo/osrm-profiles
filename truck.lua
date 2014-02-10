@@ -8,6 +8,7 @@
 --
 -- Begin of globals
 require("lib/access")
+require("lib/parser")
 
 barrier_whitelist = { ["cattle_grid"] = true, ["border_control"] = true, ["toll_booth"] = true, ["sally_port"] = true, ["gate"] = true, ["no"] = true, ["entrance"] = true}
 access_tag_whitelist = { ["yes"] = true, ["motorcar"] = true, ["motor_vehicle"] = true, ["vehicle"] = true, ["permissive"] = true, ["designated"] = true  }
@@ -41,12 +42,12 @@ speed_profile = {
 }
 
 take_minimum_of_speeds  = false
-obey_oneway 			      = true
+obey_oneway 			= true
 obey_bollards           =  true
-use_restrictions 		    = true
-ignore_areas 			      = true -- future feature
+use_restrictions 		= true
+ignore_areas 			= true -- future feature
 traffic_signal_penalty  = 2
-u_turn_penalty 			    = 20
+u_turn_penalty 			= 20
 
 -- End of globals
 
@@ -56,7 +57,7 @@ function get_exceptions(vector)
 	end
 end
 
-local function parse_maxspeed(source)
+function parse_maxspeed(source)
 	if source == nil then
 		return 0
 	end
@@ -70,42 +71,6 @@ local function parse_maxspeed(source)
 	return math.abs(n)
 end
 
-local function parse_maxweight(source)
-	if source == nil then
-		return 0
-	end
-	local n = tonumber(source:match("%d.%d*"))
-	if n == nil then
-		n = 0
-	end
-	return math.abs(n)
-end
-
-local function parse_maxheight(source)
-        if source == nil then
-                return 0
-        end
-        local n = tonumber(source:match("%d*"))
-        if n == nil then
-           n = 0
-        end
-        local inch = tonumber(source:match("(%d*)'%d"))
-        local feet = tonumber(source:match("%d*'(%d*)"))
-        if inch == nil then
-           inch = 0
-        end
-        if feet == nil then
-           feet = 0
-        end
-        if inch > 0 then
-           n = (inch * 3408)/10e3
-        end
-        if feet > 0 then
-           n = n + (feet*254)/10e3
-        end
-
-        return math.abs(n)
-     end
 
 
 function node_function (node)
@@ -268,7 +233,7 @@ function way_function (way)
 
   -- Override speed settings if explicit forward/backward maxspeeds are given
   if way.speed > 0 and maxspeed_forward ~= nil and maxspeed_forward > 0 then
-    if Way.bidirectional == way.direction then
+    if way.bidirectional == way.direction then
       way.backward_speed = way.speed
     end
     way.speed = maxspeed_forward
