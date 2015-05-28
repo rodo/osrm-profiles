@@ -1,17 +1,19 @@
--- Begin of globals
---
--- For trucks witrh following specs
---
--- weight > 3.5 t
--- height > 4.0 m
---
--- Work derived from original car.lua
---
--- Begin of globals
+-- Truck profile
 
-barrier_whitelist = { ["cattle_grid"] = true, ["border_control"] = true, ["toll_booth"] = true, ["sally_port"] = true, ["gate"] = true, ["no"] = true, ["entrance"] = true}
-access_tag_whitelist = { ["yes"] = true, ["motorcar"] = true, ["motor_vehicle"] = true, ["vehicle"] = true, ["permissive"] = true, ["designated"] = true  }
-access_tag_blacklist = { ["no"] = true, ["private"] = true, ["agricultural"] = true, ["forestry"] = true, ["emergency"] = true }
+function find_access_tag(source,access_tags_hierachy)
+    for i,v in ipairs(access_tags_hierachy) do
+        local tag = source:get_value_by_key(v)
+        if tag and tag ~= '' then
+            return tag
+        end
+    end
+    return ""
+end
+
+-- Begin of globals
+barrier_whitelist = { ["cattle_grid"] = true, ["border_control"] = true, ["checkpoint"] = true, ["toll_booth"] = true, ["sally_port"] = true, ["gate"] = true, ["lift_gate"] = true, ["no"] = true, ["entrance"] = true }
+access_tag_whitelist = { ["yes"] = true, ["motorcar"] = true, ["motor_vehicle"] = true, ["vehicle"] = true, ["permissive"] = true, ["designated"] = true }
+access_tag_blacklist = { ["no"] = true, ["private"] = true, ["agricultural"] = true, ["forestry"] = true, ["emergency"] = true, ["psv"] = true }
 access_tag_restricted = { ["destination"] = true, ["delivery"] = true }
 access_tags = { "motorcar", "motor_vehicle", "vehicle" }
 access_tags_hierachy = { "motorcar", "motor_vehicle", "vehicle", "access" }
@@ -20,22 +22,23 @@ ignore_in_grid = { ["ferry"] = true }
 restriction_exception_tags = { "motorcar", "motor_vehicle", "vehicle" }
 
 speed_profile = {
-  ["motorway"] = 80,
-  ["motorway_link"] = 30,
-  ["trunk"] = 70,
-  ["trunk_link"] = 30,
-  ["primary"] = 55,
-  ["primary_link"] = 40,
-  ["secondary"] = 45,
-  ["secondary_link"] = 30,
-  ["tertiary"] = 30,
-  ["tertiary_link"] = 10,
-  ["unclassified"] = 25,
-  ["residential"] = 20,
+  ["motorway"] = 90,
+  ["motorway_link"] = 45,
+  ["trunk"] = 85,
+  ["trunk_link"] = 45,
+  ["primary"] = 65,
+  ["primary_link"] = 30,
+  ["secondary"] = 55,
+  ["secondary_link"] = 25,
+  ["tertiary"] = 40,
+  ["tertiary_link"] = 20,
+  ["unclassified"] = 20,
+  ["residential"] = 15,
   ["living_street"] = 10,
   ["service"] = 15,
---  ["track"] = 5,
+  ["track"] = 5,
   ["ferry"] = 5,
+  ["movable"] = 5,
   ["shuttle_train"] = 10,
   ["default"] = 10
 }
@@ -52,27 +55,27 @@ surface_speeds = {
   ["concrete:lanes"] = nil,
   ["paved"] = nil,
 
-  ["cement"] = 75,
-  ["compacted"] = 70,
-  ["fine_gravel"] = 65,
+  ["cement"] = 80,
+  ["compacted"] = 50,
+  ["fine_gravel"] = 50,
 
-  ["paving_stones"] = 60,
-  ["metal"] = 60,
-  ["bricks"] = 60,
+  ["paving_stones"] = 30,
+  ["metal"] = 30,
+  ["bricks"] = 30,
 
-  ["grass"] = 30,
-  ["wood"] = 30,
-  ["sett"] = 30,
-  ["grass_paver"] = 30,
-  ["gravel"] = 30,
-  ["unpaved"] = 30,
-  ["ground"] = 30,
-  ["dirt"] = 25,
-  ["pebblestone"] = 30,
-  ["tartan"] = 30,
+  ["grass"] = 20,
+  ["wood"] = 20,
+  ["sett"] = 20,
+  ["grass_paver"] = 20,
+  ["gravel"] = 20,
+  ["unpaved"] = 20,
+  ["ground"] = 20,
+  ["dirt"] = 20,
+  ["pebblestone"] = 20,
+  ["tartan"] = 20,
 
-  ["cobblestone"] = 30,
-  ["clay"] = 30,
+  ["cobblestone"] = 20,
+  ["clay"] = 20,
 
   ["earth"] = 20,
   ["stone"] = 20,
@@ -93,8 +96,8 @@ tracktype_speeds = {
 
 -- max speed for smoothnesses
 smoothness_speeds = {
-  ["intermediate"]    =  70,
-  ["bad"]             =  35,
+  ["intermediate"]    =  80,
+  ["bad"]             =  40,
   ["very_bad"]        =  20,
   ["horrible"]        =  10,
   ["very_horrible"]   =  5,
@@ -103,66 +106,43 @@ smoothness_speeds = {
 
 -- http://wiki.openstreetmap.org/wiki/Speed_limits
 maxspeed_table_default = {
-  ["urban"] = 50,
-  ["rural"] = 90,
-  ["trunk"] = 90,
+  ["urban"] = 30,
+  ["rural"] = 60,
+  ["trunk"] = 80,
   ["motorway"] = 90
-}
-
--- List only exceptions
-maxspeed_table = {
-  ["ch:rural"] = 80,
-  ["ch:trunk"] = 100,
-  ["ch:motorway"] = 120,
-  ["de:living_street"] = 7,
-  ["ru:living_street"] = 20,
-  ["ru:urban"] = 60,
-  ["ua:urban"] = 60,
-  ["at:rural"] = 100,
-  ["de:rural"] = 100,
-  ["at:trunk"] = 100,
-  ["cz:trunk"] = 0,
-  ["ro:trunk"] = 100,
-  ["cz:motorway"] = 0,
-  ["de:motorway"] = 0,
-  ["ru:motorway"] = 110,
-  ["gb:nsl_single"] = (60*1609)/1000,
-  ["gb:nsl_dual"] = (70*1609)/1000,
-  ["gb:motorway"] = (70*1609)/1000,
-  ["uk:nsl_single"] = (60*1609)/1000,
-  ["uk:nsl_dual"] = (70*1609)/1000,
-  ["uk:motorway"] = (70*1609)/1000
 }
 
 traffic_signal_penalty          = 2
 use_turn_restrictions           = true
 
-local take_minimum_of_speeds    = false
 local obey_oneway               = true
 local obey_bollards             = true
-local ignore_areas              = true     -- future feature
+local ignore_areas              = true
 local u_turn_penalty            = 20
-traffic_signal_penalty  = 2
 
 local abs = math.abs
 local min = math.min
 local max = math.max
 
-local speed_reduction = 0.8
+local speed_reduction = 0.85
+
+nogoods_road_speed = 5 -- ok tested
+school_speed = 2 --
+
+turn_penalty      = 85 -- ok tested
+turn_bias         = 1.4 -- ok tested
 
 --modes
 local mode_normal = 1
 local mode_ferry = 2
+local mode_movable_bridge = 3
 
-local function find_access_tag(source, access_tags_hierachy)
-  for i,v in ipairs(access_tags_hierachy) do
-    local access_tag = source:get_value_by_key(v)
-    if access_tag and "" ~= access_tag then
-      return access_tag
-    end
-  end
-  return ""
-end
+-- Open PostGIS connection
+print("Connecting...")
+lua_sql = require "luasql.postgres"           -- we will connect to a postgresql database
+sql_env = assert( lua_sql.postgres() )
+sql_con = assert( sql_env:connect('gis', 'docker', 'docker', "postgis", 5432) ) -- you can add db user/password here if needed
+print("PostGIS connection opened")
 
 function get_exceptions(vector)
   for i,v in ipairs(restriction_exception_tags) do
@@ -179,42 +159,31 @@ local function parse_maxspeed(source)
     if string.match(source, "mph") or string.match(source, "mp/h") then
       n = (n*1609)/1000;
     end
-  else
-    -- parse maxspeed like FR:urban
-    source = string.lower(source)
-    n = maxspeed_table[source]
-    if not n then
-      local highway_type = string.match(source, "%a%a:(%a+)")
-      n = maxspeed_table_default[highway_type]
-      if not n then
-        n = 0
-      end
-    end
   end
   return n
 end
 
--- function turn_function (angle)
---   -- print ("called at angle " .. angle )
---   local index = math.abs(math.floor(angle/10+0.5))+1 -- +1 'coz LUA starts as idx 1
---   local penalty = turn_cost_table[index]
---   -- print ("index: " .. index .. ", bias: " .. penalty )
---   return penalty
--- end
+function turn_function (angle)
+  -- compute turn penalty as angle^2, with a left/right bias
+  k = turn_penalty/(90.0*90.0)
+  if angle>=0 then
+    return angle*angle*k/turn_bias
+  else
+    return angle*angle*k*turn_bias
+  end
+end
 
 function node_function (node, result)
   -- parse access and barrier tags
   local access = find_access_tag(node, access_tags_hierachy)
-  if access ~= "" then
+  if access and access ~= "" then
     if access_tag_blacklist[access] then
       result.barrier = true
     end
   else
     local barrier = node:get_value_by_key("barrier")
     if barrier and "" ~= barrier then
-      if barrier_whitelist[barrier] then
-        return
-      else
+      if not barrier_whitelist[barrier] then
         result.barrier = true
       end
     end
@@ -230,8 +199,9 @@ end
 function way_function (way, result)
   local highway = way:get_value_by_key("highway")
   local route = way:get_value_by_key("route")
+  local bridge = way:get_value_by_key("bridge")
 
-  if not ((highway and highway ~= "") or (route and route ~= "")) then
+  if not ((highway and highway ~= "") or (route and route ~= "") or (bridge and bridge ~= "")) then
     return
   end
 
@@ -257,10 +227,45 @@ function way_function (way, result)
     return
   end
 
+  local width = math.huge
+  local width_string = way:get_value_by_key("width")
+  if width_string and tonumber(width_string:match("%d*")) then
+    width = tonumber(width_string:match("%d*"))
+  end
+
   -- Check if we are allowed to access the way
   local access = find_access_tag(way, access_tags_hierachy)
   if access_tag_blacklist[access] then
     return
+  end
+
+  -- handling ferries and piers
+  local route_speed = speed_profile[route]
+  if (route_speed and route_speed > 0) then
+    highway = route;
+    local duration  = way:get_value_by_key("duration")
+    if duration and durationIsValid(duration) then
+      result.duration = max( parseDuration(duration), 1 );
+    end
+    result.forward_mode = mode_ferry
+    result.backward_mode = mode_ferry
+    result.forward_speed = route_speed
+    result.backward_speed = route_speed
+  end
+
+  -- handling movable bridges
+  local bridge_speed = speed_profile[bridge]
+  local capacity_car = way:get_value_by_key("capacity:car")
+  if (bridge_speed and bridge_speed > 0) and (capacity_car ~= 0) then
+    highway = bridge;
+    local duration  = way:get_value_by_key("duration")
+    if duration and durationIsValid(duration) then
+      result.duration = max( parseDuration(duration), 1 );
+    end
+    result.forward_mode = mode_movable_bridge
+    result.backward_mode = mode_movable_bridge
+    result.forward_speed = bridge_speed
+    result.backward_speed = bridge_speed
   end
 
   -- We don't route over route with maxweight=3.5 or less
@@ -279,18 +284,18 @@ function way_function (way, result)
      end
   end
 
-  -- Handling ferries and piers
-  local route_speed = speed_profile[route]
-  if(route_speed and route_speed > 0) then
-    highway = route;
-    local duration  = way:get_value_by_key("duration")
-    if duration and durationIsValid(duration) then
-      result.duration = max( parseDuration(duration), 1 );
-    end
-    result.forward_mode = mode_ferry
-    result.backward_mode = mode_ferry
-    result.forward_speed = route_speed
-    result.backward_speed = route_speed
+  -- avoid goods=no road
+  local goods = way:get_value_by_key("goods")
+  if goods and ("no" ==  goods or "delivery" == goods or "destination" == goods) then
+    result.forward_speed = nogoods_road_speed
+    result.backward_speed = nogoods_road_speed
+  end
+
+  -- hgv is from truck - 
+  local hgv = way:get_value_by_key("hgv")
+  if hgv and ("no" ==  hgv or "delivery" == hgv or "destination" == hgv) then
+    result.forward_speed = nogoods_road_speed
+    result.backward_speed = nogoods_road_speed
   end
 
   -- leave early of this way is not accessible
@@ -311,6 +316,8 @@ function way_function (way, result)
         result.forward_speed = highway_speed
         result.backward_speed = highway_speed
       end
+      result.forward_speed = min(result.forward_speed, highway_speed)
+      result.backward_speed = min(result.backward_speed, highway_speed)
     else
       -- Set the avg speed on ways that are marked accessible
       if access_tag_whitelist[access] then
@@ -321,8 +328,6 @@ function way_function (way, result)
     if 0 == max_speed then
       max_speed = math.huge
     end
-    result.forward_speed = min(result.forward_speed, max_speed)
-    result.backward_speed = min(result.backward_speed, max_speed)
   end
 
   if -1 == result.forward_speed and -1 == result.backward_speed then
@@ -392,37 +397,69 @@ function way_function (way, result)
     end
   end
 
-  -- Override speed settings if explicit forward/backward maxspeeds are given
-  local maxspeed_forward = parse_maxspeed(way:get_value_by_key( "maxspeed:forward"))
-  local maxspeed_backward = parse_maxspeed(way:get_value_by_key( "maxspeed:backward"))
-  if maxspeed_forward and maxspeed_forward > 0 then
-    if 0 ~= result.forward_mode and 0 ~= result.backward_mode then
-      result.backward_speed = result.forward_speed
-    end
-    result.forward_speed = maxspeed_forward
-  end
-  if maxspeed_backward and maxspeed_backward > 0 then
-    result.backward_speed = maxspeed_backward
-  end
-
   -- Override general direction settings of there is a specific one for our mode of travel
   if ignore_in_grid[highway] then
     result.ignore_in_grid = true
+  end  
+
+  if highway~="motorway" and highway~="trunk" and highway~="primary" and highway~="residential" then
+    -- Query PostGIS for residential areas close to the way, then group by way and sum the areas.
+    -- We take the square root of the area to get a estimate of the length of the side of the area, 
+    -- and thus a rough guess of how far we might be travelling along the area. 
+    local sql_query = " " ..
+      "SELECT SUM(SQRT(area.area)) AS val " ..
+      "FROM osm_new_roads way " ..
+      "LEFT JOIN osm_new_landusages area ON ST_DWithin(way.geometry, area.geometry, 50) " ..
+      "WHERE area.type IN ('residential','school','university','college') AND way.osm_id=" .. way:id() .. " " ..
+      "GROUP BY way.id"
+    
+    local cursor = assert( sql_con:execute(sql_query) )   -- execute query
+    local row = cursor:fetch( {}, "a" )                   -- fetch first (and only) row
+    if row then
+     local val = tonumber(row.val)                       -- read 'val' from row 
+     if val > 10 then      
+       result.forward_speed = speed_profile["residential"]
+       result.backward_speed = speed_profile["residential"]
+       --result.forward_speed = result.forward_speed / math.log10(val)         -- reduce speed by amount of residential close by 
+     end
+    end
+    
+    -- look at school
+    sql_query = " " ..
+      "SELECT COUNT(amenity.id) AS val " ..
+      "FROM osm_new_roads way " ..
+      "LEFT JOIN osm_new_amenities amenity ON ST_DWithin(way.geometry, amenity.geometry, 50) " ..
+      "WHERE amenity.type IN ('school','university','college') AND way.osm_id=" .. way:id()
+    cursor = assert( sql_con:execute(sql_query) )   -- execute query        
+    row = cursor:fetch( {}, "a" )                   -- fetch first (and only) row
+    if row then
+     local val = tonumber(row.val)                       -- read 'val' from row 
+     if val > 0 then      
+       print("school spotted @ " .. way:id())
+       result.forward_speed = school_speed
+       result.backward_speed = school_speed
+     end
+    end
+    cursor:close()                                        -- done with this query
   end
 
   -- scale speeds to get better avg driving times
   if result.forward_speed > 0 then
-    result.forward_speed = result.forward_speed*speed_reduction + 11;
+    local scaled_speed = result.forward_speed*speed_reduction;
+    local penalized_speed = math.huge
+    if width <= 4 then
+      penalized_speed = result.forward_speed / 2;
+    end
+    result.forward_speed = math.min(penalized_speed, scaled_speed)
   end
-  if result.backward_speed > 0 then
-    result.backward_speed = result.backward_speed*speed_reduction + 11;
-  end
-end
 
--- These are wrappers to parse vectors of nodes and ways and thus to speed up any tracing JIT
-function node_vector_function(vector)
-  for v in vector.nodes do
-    node_function(v)
+  if result.backward_speed > 0 then
+    local scaled_speed = result.backward_speed*speed_reduction;
+    local penalized_speed = math.huge
+    if width <= 4 then
+      penalized_speed = result.backward_speed / 2;
+    end
+    result.backward_speed = math.min(penalized_speed, scaled_speed)
   end
 end
 
@@ -465,3 +502,4 @@ function parse_maxheight(source)
 
   return math.abs(n)
 end
+
