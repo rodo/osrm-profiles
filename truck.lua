@@ -74,7 +74,7 @@ end
 
 
 function node_function (node)
-  local barrier = node.tags:Find("barrier")
+  local barrier = node:get_value_by_key("barrier")
   local access = Access.find_access_tag(node, access_tags_hierachy)
   local traffic_signal = node.tags:Find("highway")
 
